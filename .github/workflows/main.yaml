@@ -30,8 +30,8 @@ jobs:
         CI: true
 
     - name: Roda o arquivo
-      run: |-
     # Aqui você insere o nome do seu arquivo javascript
+      run: |-
         node index.js
         cat README.md
 
