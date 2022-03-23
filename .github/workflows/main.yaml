@@ -1,0 +1,48 @@
+# Nome do processo
+name: Update automático
+
+on:
+  schedule:
+# cron é o "intervalo" de execução, recomendo usar
+# o site crontab.guru para lhe ajudar a definir.
+# nesse caso aqui, ele irá rodar a cada 10 minutos.
+    - cron: '*/10 * * * *'
+
+# Aqui vem os passos que a ação segue
+jobs:
+  build:
+# Inicia uma máquina virtual ubuntu
+    runs-on: ubuntu-latest
+
+# Checa o código atual do repositório
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+# Instala o node na versão 16.10
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.10
+    - run: npm install
+    - run: npm run build --if-present
+      env:
+        CI: true
+
+
+    - name: Roda o arquivo
+      run: |-
+    # Aqui você insere o nome do seu arquivo javascript
+        node index.js
+        cat README.md
+
+# E no final commita e faz um push caso haja alguma diferença
+# comparada ao código atual do repositório
+    - name: Commit e push
+      run: |-
+        git diff
+        git config --global user.email "bot-readme@example.com"
+        git config --global user.name "bot automático"
+        git add -A
+        git commit -m "Arquivo atualizado!" || exit 0
+        git push
