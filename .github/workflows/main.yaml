@@ -3,23 +3,23 @@ name: Update automático
 
 on:
   schedule:
-# cron é o "intervalo" de execução, recomendo usar
-# o site crontab.guru para lhe ajudar a definir.
-# nesse caso aqui, ele irá rodar a cada 10 minutos.
+    # cron é o "intervalo" de execução, recomendo usar
+    # o site crontab.guru para lhe ajudar a definir.
+    # nesse caso aqui, ele irá rodar a cada 10 minutos.
     - cron: '*/10 * * * *'
 
 # Aqui vem os passos que a ação segue
 jobs:
   build:
-# Inicia uma máquina virtual ubuntu
+    # Inicia uma máquina virtual ubuntu
     runs-on: ubuntu-latest
 
-# Checa o código atual do repositório
+    # Checa o código atual do repositório
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
 
-# Instala o node na versão 16.10
+    # Instala o node na versão 16.10
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
@@ -29,14 +29,14 @@ jobs:
       env:
         CI: true
 
-    - name: Roda o arquivo
     # Aqui você insere o nome do seu arquivo javascript
+    - name: Roda o arquivo
       run: |-
         node index.js
         cat README.md
 
-# E no final commita e faz um push caso haja alguma diferença
-# comparada ao código atual do repositório
+    # E no final commita e faz um push caso haja alguma diferença
+    # comparada ao código atual do repositório
     - name: Commit e push
       run: |-
         git diff
