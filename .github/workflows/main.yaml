@@ -5,8 +5,8 @@ on:
   schedule:
     # cron é o "intervalo" de execução, recomendo usar
     # o site crontab.guru para lhe ajudar a definir.
-    # nesse caso aqui, ele irá rodar a cada 10 minutos.
-    - cron: '0 0 * * *'
+    # nesse caso aqui, ele irá rodar a cada 1 mês.
+    - cron: '0 0 0 * *'
 
 # Aqui vem os passos que a ação segue
 jobs:
